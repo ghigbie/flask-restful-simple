@@ -24,6 +24,6 @@ class ItemList(Resource):
         return {"items" : items}
 
 api.add_resource(Item, '/item/<string:name>')
-api.add_resource(ItemList. '/items')
+api.add_resource(ItemList, '/items')
 
 app.run(port=5000, debug=True)
