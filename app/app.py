@@ -18,6 +18,10 @@ class Item(Resource):
         items.append(item)
         return item, 201
 
+class ItemList(Resource):
+    def get(self):
+        return {"items" : items}
+
 api.add_resource(Item, '/item/<string:name>')
 
 app.run(port=5000, debug=True)
