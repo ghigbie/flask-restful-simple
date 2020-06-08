@@ -8,7 +8,10 @@ items = []
 
 class Item(Resource):
     def get(self, name):
-        return {'item name': 'Bill'}
+        for item in items:
+            if item["name"] == name:
+                return item
+        return {'message' : 'item not found'}
 
     def post(self, name):
         item = {'name': name, 'price': 12.00}
