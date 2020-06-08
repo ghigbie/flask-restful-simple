@@ -8,20 +8,28 @@ items = []
 
 class Item(Resource):
     def get(self, name):
-        for item in items:
-            if item["name"] == name:
-                return item
-        return {'item' : None}, 404
+        items = next(filter(lambda x: x['name'] == name, items), None) #returns 1st match
+        return {'item' : item}, 200 if item else 404
 
     def post(self, name):
+        if next(filter(lambda x: x['name'] == name, items), None)is not None: #test to see if already
+                return {'message' : f('An item the name "{name}" already exists')}, 400
         data = request.get_json()
         item = {'name': name, 'price': data["price"]}
         items.append(item)
         return item, 201
 
+    def delete(self, name):
+        pass
+
+    def put(self, name):
+        pass
+
+
 class ItemList(Resource):
     def get(self):
         return {"items" : items}
+
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
